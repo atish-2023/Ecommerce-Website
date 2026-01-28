@@ -1,4 +1,6 @@
-# Store (Ecommerce App)
+# Ecommerce-Website
+
+This is my Ecommerce Website
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.6.
 
@@ -70,6 +72,7 @@ To install all dependencies in package.json.
 
 It runs the app in the development mode.<br />
 Open [http://localhost:4200](http://localhost:4200) to view it in the browser. 
+
 ## Contributing
 
 If you want to contribute to this project, you can fork the repository and submit a pull request.
