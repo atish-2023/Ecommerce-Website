@@ -1,0 +1,40 @@
+
+<section id="checkout-complete">
+    <div *ngIf="loading" class="text-center p-5">
+        <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Loading order details...</p>
+    </div>
+    
+    <div *ngIf="!loading">
+        <div class="checkout-complete-header text-center">
+            <div class="rounded-circle checkmark">
+                <i>✓</i>
+            </div>
+            <h4>
+                Congratulation! You’ve completed payment.
+            </h4>
+            <p>We have received your order and it will be delivered in the next 3 days</p>
+        </div>
+    <div class="checkout-complete-summary text-center">
+        <div class="item">
+            <h5>Order Number</h5>
+            <p>{{orderNumber}}</p>
+        </div>
+        <div class="item">
+            <h5>Date</h5>
+            <p>{{today | date}}</p>
+        </div>
+        <div class="item">
+            <h5>Total</h5>
+            <p>$ {{totalPrice}}</p>
+        </div>
+        <div class="item">
+            <h5>Payment methods</h5>
+            <p>Stripe Payment</p>
+        </div>
+    </div>
+    <button class="btn btn-warning rounded mt-4" (click)="navigateToStore()">Back to store</button>
+    </div>
+</section>

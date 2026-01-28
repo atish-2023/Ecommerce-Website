@@ -1,0 +1,142 @@
+<!-- Existing profile content -->
+<article class="card mb-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="avatar-container">
+                    <img class="img-avatar" 
+                         [src]="profile.avatar || defaultAvatar" 
+                         alt="User Avatar"
+                         (error)="handleImageError($event)"
+                         [attr.data-fallback]="defaultAvatar">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h4 class="text-dark mb-0">{{profile.name}}</h4>
+                <div class="mb-3 text-muted">{{profile.role}}</div>
+                <div class="d-flex gap-2">
+                    <a (click)="openEditModal()" class="btn btn-outline-primary"> Edit profile </a>
+                    <button type="button" class="btn btn-outline-primary" (click)="openChangePasswordModal()">
+                        Change Password
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <article class="box bg-light">
+                    <b class="mx-2 text-muted">
+                        <i class="fa-solid fa-envelope"></i>
+                    </b>
+                    Email: {{profile.email}}
+                </article>
+            </div>
+            <div class="col-md-6">
+                <article class="box bg-light">
+                    <b class="mx-2 text-muted">
+                        <i class="fa-solid fa-phone-flip"></i>
+                    </b>
+                    Phone: +1234567890988
+                </article>
+            </div>
+            <div class="col-md-6">
+                <article class="box bg-light">
+                    <b class="mx-2 text-muted">
+                        <i class="fa-solid fa-user"></i>
+                    </b>
+                    {{profile.role}}
+                </article>
+            </div>
+            <div class="col-md-6">
+                <article class="box bg-light Address">
+                    <b class="mx-2 text-muted">
+                        <i class="fa fa-map-marker-alt"></i>
+                    </b>
+                    Moscow city, Street name, Building lenin, House 77
+                </article>
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" [class.show]="isVisable" id="EditModal" tabindex="-1" role="dialog"
+    aria-labelledby="EditModalLabel" [style]="isVisable?'display: block;':''">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditModalLabel">Edit User Data</h5>
+                <button type="button text-muted" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="closeEditModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editUserFormGroup">
+                    <div class="form-group">
+                        <label for="fullName" class="col-form-label">Full Name:</label>
+                        <input type="text" class="form-control" id="fullName" formControlName="name">
+                        <small *ngIf="editUserForm.name.invalid && isSubmitted" class="d-block text-danger">
+                            Name is required
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAddress" class="col-form-label">Email Address:</label>
+                        <input type="email" class="form-control" id="emailAddress" formControlName="email">
+                        <small *ngIf="editUserForm.email.invalid && isSubmitted" class="d-block text-danger">
+                            Valid email is required
+                        </small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="onSubmitEdit()">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal fade" [class.show]="isChangePasswordModalVisible" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" [style]="isChangePasswordModalVisible?'display: block;':''">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeChangePasswordModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="changePasswordFormGroup">
+                    <div class="form-group">
+                        <label for="currentPassword" class="col-form-label">Current Password:</label>
+                        <input type="password" class="form-control" id="currentPassword" formControlName="currentPassword">
+                        <small *ngIf="changePasswordForm.currentPassword.invalid && passwordSubmitted" class="d-block text-danger">
+                            Current password is required
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword" class="col-form-label">New Password:</label>
+                        <input type="password" class="form-control" id="newPassword" formControlName="newPassword">
+                        <small *ngIf="changePasswordForm.newPassword.invalid && passwordSubmitted" class="d-block text-danger">
+                            New password must be at least 8 characters
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="col-form-label">Confirm New Password:</label>
+                        <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                        <small *ngIf="changePasswordForm.confirmPassword.errors?.mismatch && passwordSubmitted" class="d-block text-danger">
+                            Passwords must match
+                        </small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="closeChangePasswordModal()">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="onChangePassword()">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
